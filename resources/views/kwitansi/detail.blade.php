@@ -119,8 +119,14 @@
             <div
                 style="width: 21.59cm; text-align: center; display: flex; justify-content: space-between; align-items: center">
                 <div style="flex: 1">
-                    <a style="width: 6rem" class="btn btn-back" href="{{ route('kwitansi') }}">Kembali</a>
+                    <a style="width: 6rem" class="btn btn-back" onclick="goBack()">Kembali</a>
                 </div>
+                <script>
+                    // Fungsi untuk kembali ke halaman sebelumnya
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
                 @can('super admin')
                     <div style="flex: 1">
                         <button style="width: 6rem" type="button"
@@ -129,8 +135,8 @@
                     </div>
                 @endcan
                 <div style="flex: 1">
-                    <a class="btn btn-print" style="width: 6rem;"
-                        href="{{ route('kwitansi.print', $kwitansi->id) }}">Cetak</a>
+                    <a class="btn btn-print" style="width: 8rem;"
+                        href="{{ route('kwitansi.print', $kwitansi->id) }}">Print Preview</a>
                 </div>
             </div>
         </div>

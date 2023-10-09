@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\ExportKwitansi;
-use App\Models\Kwitansi;
 use Exception;
+use App\Models\Kwitansi;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Exports\ExportKwitansi;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KwitansiController extends Controller
@@ -18,34 +19,34 @@ class KwitansiController extends Controller
     }
 
     public function index(Request $request)
-{
-    $search = $request->input('search');
+    {
+        $search = $request->input('search');
 
-    // Filter Kwitansi berdasarkan pencarian
-    $kwitansis = Kwitansi::where(function ($query) use ($search) {
-        $query
-            ->where('nomor_kwitansi', 'LIKE', '%' . $search . '%')
-            ->orWhere('nama_lengkap', 'LIKE', '%' . $search . '%')
-            ->orWhere('alamat', 'LIKE', '%' . $search . '%')
-            ->orWhere('no_hp', 'LIKE', '%' . $search . '%') 
-            ->orWhere('terbilang', 'LIKE', '%' . $search . '%')
-            ->orWhere('pembayaran', 'LIKE', '%' . $search . '%') 
-            ->orWhere('keterangan', 'LIKE', '%' . $search . '%')
-            ->orWhere('lokasi', 'LIKE', '%' . $search . '%')
-            ->orWhere('no_kavling', 'LIKE', '%' . $search . '%')
-            ->orWhere('type', 'LIKE', '%' . $search . '%')
-            ->orWhere('jumlah', 'LIKE', '%' . $search . '%');
-    })->get();
+        // Filter Kwitansi berdasarkan pencarian
+        $kwitansis = Kwitansi::where(function ($query) use ($search) {
+            $query
+                ->where('nomor_kwitansi', 'LIKE', '%' . $search . '%')
+                ->orWhere('nama_lengkap', 'LIKE', '%' . $search . '%')
+                ->orWhere('alamat', 'LIKE', '%' . $search . '%')
+                ->orWhere('no_hp', 'LIKE', '%' . $search . '%')
+                ->orWhere('terbilang', 'LIKE', '%' . $search . '%')
+                ->orWhere('pembayaran', 'LIKE', '%' . $search . '%')
+                ->orWhere('keterangan', 'LIKE', '%' . $search . '%')
+                ->orWhere('lokasi', 'LIKE', '%' . $search . '%')
+                ->orWhere('no_kavling', 'LIKE', '%' . $search . '%')
+                ->orWhere('type', 'LIKE', '%' . $search . '%')
+                ->orWhere('jumlah', 'LIKE', '%' . $search . '%');
+        })->get();
 
-    if ($kwitansis->count() == 0) {
-        session()->flash('error', 'Kwitansi tidak ditemukan');
-        return redirect('/kwitansi');
+        if ($kwitansis->count() == 0) {
+            session()->flash('error', 'Kwitansi tidak ditemukan');
+            return redirect('/kwitansi');
+        }
+
+        return view('kwitansi.index', [
+            'kwitansis' => $kwitansis,
+        ]);
     }
-
-    return view('kwitansi.index', [
-        'kwitansis' => $kwitansis,
-    ]);
-}
 
     public function create()
     {
@@ -195,8 +196,25 @@ class KwitansiController extends Controller
         return redirect('/kwitansi');
     }
 
-    function export_excel()
-    {
-        return Excel::Download(new ExportKwitansi(), 'Kwitansi.xlsx');
+    public function exportExcel(Request $request)
+{
+    // Ambil nilai start_date dan end_date dari request
+    $startDate = Carbon::parse($request->input('start_date'))->startOfDay()->toDateTimeString();
+    $endDate = Carbon::parse($request->input('end_date'))->endOfDay()->toDateTimeString();
+
+    // Debug: Tampilkan nilai start_date dan end_date
+    dd($startDate, $endDate);
+
+    if ($request->has('start_date') && $request->has('end_date')) {
+        // Ekspor data kwitansi dengan rentang tanggal
+        return Excel::download(new ExportKwitansiWithDate($startDate, $endDate), 'Kwitansi.xlsx');
     }
+
+    // Ekspor semua data kwitansi
+    $query = Kwitansi::whereBetween('created_at', [$startDate, $endDate])->orderBy('nomor_kwitansi', 'asc');
+    dd($query->toSql(), $query->getBindings()); // Debug: Tampilkan query SQL yang akan dieksekusi
+
+    return Excel::download(new ExportKwitansi(), 'Kwitansi.xlsx');
+}
+
 }

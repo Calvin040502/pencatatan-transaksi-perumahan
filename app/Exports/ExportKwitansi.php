@@ -3,17 +3,17 @@
 namespace App\Exports;
 
 use App\Models\Kwitansi;
-use Maatwebsite\Excel\Concerns\FromView;
-use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromCollection;
 
-class ExportKwitansi implements FromView
+class ExportKwitansi implements FromCollection
 {
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function view(): View
+    * @return \Illuminate\Support\Collection
+    */
+    public function collection()
     {
-        $data = Kwitansi::orderBy('nomor_kwitansi', 'asc')->get();
-        return view('kwitansi.table', ['kwitansis' => $data]);
+        return Kwitansi::all();
     }
 }
+
+

@@ -346,11 +346,18 @@
                 style="width: 21.59cm; text-align: center; display: flex; justify-content: space-between; align-items: center">
                 <div style="flex: 1">
                     <a style="width: 6rem" class="btn btn-back"
-                        href="{{ route('kwitansi.detail', $kwitansi->id) }}">Kembali</a>
+                        onclick="goBack()"
+                        >Kembali</a>
                 </div>
+                <script>
+                    // Fungsi untuk kembali ke halaman sebelumnya
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
                 <div style="flex: 1">
-                    <button type="button" style="width: 6rem;" class="btn btn-print"
-                        onclick="printKwitansi()" media="print">Cetak</button>
+                    <button type="button" style="width: 7rem;" class="btn btn-print"
+                        onclick="printKwitansi()" media="print"><img style="margin-right: 4px" src="{{ asset('icon/printer.svg') }}" alt=""> Cetak</button>
                 </div>
             </div>
         </div>
