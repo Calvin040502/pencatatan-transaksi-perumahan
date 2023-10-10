@@ -44,7 +44,7 @@ Route::get('/kwitansi/detail/{kwitansi:id}/print', [KwitansiController::class, '
 
 Route::get('/kwitansi/export/excel', [KwitansiController::class, 'exportExcel'])->middleware('can:admin');
 // Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'export_excel_with_date'])->middleware('can:admin');
-Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'exportExcel']);
+Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'exportExcel'])->middleware('can:admin');
 
 
 

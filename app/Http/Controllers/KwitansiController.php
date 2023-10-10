@@ -7,6 +7,7 @@ use App\Models\Kwitansi;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Exports\ExportKwitansi;
+use App\Exports\ExportKwitansiWithDate;
 use Maatwebsite\Excel\Facades\Excel;
 
 class KwitansiController extends Controller
@@ -197,24 +198,24 @@ class KwitansiController extends Controller
     }
 
     public function exportExcel(Request $request)
-{
-    // Ambil nilai start_date dan end_date dari request
-    $startDate = Carbon::parse($request->input('start_date'))->startOfDay()->toDateTimeString();
-    $endDate = Carbon::parse($request->input('end_date'))->endOfDay()->toDateTimeString();
+    {
+        // Ambil nilai start_date dan end_date dari request
+        $startDate = Carbon::parse($request->input('start_date'))
+            ->startOfDay()
+            ->toDateTimeString();
+        $endDate = Carbon::parse($request->input('end_date'))
+            ->endOfDay()
+            ->toDateTimeString();
 
-    // Debug: Tampilkan nilai start_date dan end_date
-    dd($startDate, $endDate);
+        // Debug: Tampilkan nilai start_date dan end_date
+        // dd($startDate, $endDate); // Hapus pernyataan ini setelah selesai debugging
+        
+        if ($request->has('start_date') && $request->has('end_date')) {
+            // Ekspor data kwitansi dengan rentang tanggal
+            return Excel::download(new ExportKwitansiWithDate($startDate, $endDate), 'Kwitansi.xlsx');
+        }
 
-    if ($request->has('start_date') && $request->has('end_date')) {
-        // Ekspor data kwitansi dengan rentang tanggal
-        return Excel::download(new ExportKwitansiWithDate($startDate, $endDate), 'Kwitansi.xlsx');
+        // Ekspor semua data kwitansi
+        return Excel::download(new ExportKwitansi(), 'Kwitansi.xlsx');
     }
-
-    // Ekspor semua data kwitansi
-    $query = Kwitansi::whereBetween('created_at', [$startDate, $endDate])->orderBy('nomor_kwitansi', 'asc');
-    dd($query->toSql(), $query->getBindings()); // Debug: Tampilkan query SQL yang akan dieksekusi
-
-    return Excel::download(new ExportKwitansi(), 'Kwitansi.xlsx');
-}
-
 }

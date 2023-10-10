@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Exports;
 
 use App\Models\Kwitansi;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
 class ExportKwitansiWithDate implements FromView
 {
@@ -26,11 +27,10 @@ class ExportKwitansiWithDate implements FromView
         $startDate = Carbon::parse($this->startDate)->startOfDay();
         $endDate = Carbon::parse($this->endDate)->endOfDay();
 
-        $data = Kwitansi::whereBetween('created_at', [$startDate, $endDate])
+        $data = Kwitansi::select('nomor_kwitansi', 'nama_lengkap', 'alamat', 'no_hp', 'terbilang', 'pembayaran', 'keterangan', 'lokasi', 'no_kavling', 'type', 'jumlah')
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->orderBy('nomor_kwitansi', 'asc')
             ->get();
-
-        dd($data); // Debugging statement
 
         return view('kwitansi.table', ['kwitansis' => $data]);
     }
