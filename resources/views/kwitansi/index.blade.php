@@ -61,6 +61,7 @@
                         <th style="width: 2rem; justify-content: center; align-items: center; cursor: pointer; border-top-left-radius: 6px"
                             id="sortNo">No.</th>
                         <th style="width: 4.5rem; cursor: pointer;" id="sortKwitansi">No. Kwitansi</th>
+                        <th style="width: 4.5rem; cursor: pointer;" id="sortTanggal">Tanggal</th>
                         <th style="width: 6rem; cursor: pointer;" id="sortNama">Nama Lengkap</th>
                         <th style="width: 10rem;">Alamat</th>
                         <th style="width: 4.5rem;">No. HP</th>
@@ -87,6 +88,7 @@
                             style="cursor: pointer;">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $kwitansi->nomor_kwitansi }}</td>
+                            <td>{{ date('j F Y', strtotime($kwitansi->created_at)) }}</td>
                             <td>{{ $kwitansi->nama_lengkap }}</td>
                             <td>{{ $kwitansi->alamat }}</td>
                             <td>{{ $kwitansi->no_hp }}</td>
@@ -150,7 +152,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" id="exportDurationModalButton">Ekspor</button>
+                    <button type="button" class="btn btn-primary" id="exportDurationModalButton">Export</button>
                 </div>
             </div>
         </div>
@@ -185,6 +187,7 @@
             let noSortOrder = 1;
             let kwitansiSortOrder = 1;
             let namaSortOrder = 1;
+            // let tanggalSortOrder = 1;
 
             // Function to update the table with sorted data
             function updateTable(sortKey, sortOrder) {
@@ -224,6 +227,11 @@
                 namaSortOrder *= -1;
                 updateTable(2, namaSortOrder);
             });
+
+            // $("#sortTanggal").click(function() {
+            //     tanggalSortOrder *= -1;
+            //     updateTable(3, tanggalSortOrder);
+            // });
         });
     </script>
     <script>
