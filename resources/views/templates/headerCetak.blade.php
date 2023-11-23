@@ -6,7 +6,7 @@
     <title>PT SATRIYO MEGA SARANA</title>
     <div class="containerlogo">
         <div class="headerlogo row">
-            <img src=" {{ asset("/img/logo.png") }}">
+            <img src=" {{ asset("/img/logo-pt.png") }}">
         </div>
         <div class="headerkonten">
             <h1 class="header-tittle">PT. SATRIYO MEGA SARANA</h1>

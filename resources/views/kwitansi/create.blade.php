@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Tambah Kwitansi</title>
-    <link rel="icon" href="{{ asset('img/logo.png') }}">
+    <link rel="icon" href="{{ asset('img/logo-pt.png') }}">
 </head>
 
 <body>
@@ -33,8 +33,9 @@
                                 <div class="col-sm-6">
                                     <div class="nomor">
                                         <label for="nomor_kwitansi">No. Kwitansi :</label>
-                                        <input class="form-first p-1 shadow-sm bg-body-tertiary rounded" type="text" id="nomor_kwitansi"
-                                            name="nomor_kwitansi" value="{{ $serialNumber }}" readonly>
+                                        <input class="form-first p-1 shadow-sm bg-body-tertiary rounded" type="text"
+                                            id="nomor_kwitansi" name="nomor_kwitansi" value="{{ $serialNumber }}"
+                                            readonly>
                                     </div>
                                 </div>
                             </div>
@@ -42,14 +43,14 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <label for="nama_lengkap" class="col-form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control shadow-sm bg-body-tertiary rounded" id="nama_lengkap" name="nama_lengkap"
-                                        placeholder="Masukkan Nama Lengkap"
+                                    <input type="text" class="form-control shadow-sm bg-body-tertiary rounded"
+                                        id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan Nama Lengkap"
                                         onkeypress="return hanyaHurufDanSpasi(event)" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="lokasi" class="col-form-label">Nama Perumahan</label>
-                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="lokasi" name="lokasi"
-                                        placeholder="Masukkan Lokasi Perumahan"
+                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="lokasi"
+                                        name="lokasi" placeholder="Masukkan Lokasi Perumahan"
                                         onkeypress="return hanyaHurufDanSpasi(event)" required>
                                 </div>
                             </div>
@@ -57,26 +58,27 @@
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <label for="alamat" class="col-form-label">Alamat</label>
-                                    <input type="text" class="form-control shadow-sm bg-body-tertiary rounded" id="alamat" name="alamat"
-                                        placeholder="Masukkan Alamat" required>
+                                    <input type="text" class="form-control shadow-sm bg-body-tertiary rounded"
+                                        id="alamat" name="alamat" placeholder="Masukkan Alamat" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="no_kavling" class="col-form-label">No. Kavling</label>
-                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="no_kavling" name="no_kavling"
-                                        placeholder="Masukkan Nomor Kavling" required>
+                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="no_kavling"
+                                        name="no_kavling" placeholder="Masukkan Nomor Kavling" required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <label for="no_hp" class="col-form-label"> No. HP </label>
-                                    <input id="no_hp" class="form-control shadow-sm bg-body-tertiary rounded" type="text" id="no_hp"
-                                        name="no_hp" placeholder="Masukkan Nomor HP"
+                                    <input id="no_hp" class="form-control shadow-sm bg-body-tertiary rounded"
+                                        type="text" id="no_hp" name="no_hp" placeholder="Masukkan Nomor HP"
                                         onkeypress="return hanyaAngka(event)" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="type" class="col-form-label">Type</label>
-                                    <select class="form-select p-2 shadow-sm bg-body-tertiary rounded" id="type" name="type" required>
+                                    <select class="form-select p-2 shadow-sm bg-body-tertiary rounded" id="type"
+                                        name="type" required>
                                         <option value="30/60">30/60</option>
                                         <option value="30/60">30/66</option>
                                         <option value="40/72">45/72</option>
@@ -85,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="container mb-3">
-                                <label for="pembayaran" class="col-form-label">Pembayaran</label> 
+                                <label for="pembayaran" class="col-form-label">Pembayaran</label>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
@@ -130,26 +132,27 @@
                             <div class="row mb-3" id="keteranganRow" style="display: none;">
                                 <div class="col-sm-12">
                                     <label for="keterangan" class="col-form-label">Keterangan</label>
-                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="keterangan" name="keterangan"
-                                        placeholder="Masukkan keterangan">
+                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="keterangan"
+                                        name="keterangan" placeholder="Masukkan keterangan">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-12">
                                     <label for="terbilang" class="col-form-label">Terbilang</label>
-                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="terbilang" name="terbilang"
-                                        placeholder="Masukkan Terbilang" onkeypress="return hanyaHurufDanSpasi(event)"
-                                        required>
+                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="terbilang"
+                                        name="terbilang" placeholder="Masukkan Terbilang"
+                                        onkeypress="return hanyaHurufDanSpasi(event)" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-12">
                                     <label for="jumlah" class="col-form-label">Jumlah</label>
-                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="jumlah" name="jumlah"
-                                        placeholder="Masukkan Jumlah" required>
+                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="jumlah"
+                                        name="jumlah" placeholder="Masukkan Jumlah" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-add mt-3 shadow-sm" id="tambahButton" disabled>Tambah</button>
+                            <button type="submit" class="btn btn-add mt-3 shadow-sm" id="tambahButton"
+                                disabled>Tambah</button>
                         </form>
                     </div>
                 </div>
@@ -172,29 +175,28 @@
         }
     </script>
 
-<script>
-    // Dapatkan semua elemen input yang perlu diverifikasi
-    const inputFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-    
-    // Dapatkan tombol "Tambah"
-    const tambahButton = document.getElementById('tambahButton');
-    
-    // Tambahkan event listener untuk memeriksa field saat berubah
-    inputFields.forEach(field => {
-        field.addEventListener('input', function() {
-            // Cek apakah semua field yang wajib diisi sudah terisi
-            const allFieldsValid = [...inputFields].every(field => field.value.trim() !== '');
-            
-            // Aktifkan atau nonaktifkan tombol "Tambah" berdasarkan hasil pemeriksaan di atas
-            if (allFieldsValid) {
-                tambahButton.removeAttribute('disabled');
-            } else {
-                tambahButton.setAttribute('disabled', 'true');
-            }
-        });
-    });
-</script>
+    <script>
+        // Dapatkan semua elemen input yang perlu diverifikasi
+        const inputFields = document.querySelectorAll('input[required], select[required], textarea[required]');
 
+        // Dapatkan tombol "Tambah"
+        const tambahButton = document.getElementById('tambahButton');
+
+        // Tambahkan event listener untuk memeriksa field saat berubah
+        inputFields.forEach(field => {
+            field.addEventListener('input', function() {
+                // Cek apakah semua field yang wajib diisi sudah terisi
+                const allFieldsValid = [...inputFields].every(field => field.value.trim() !== '');
+
+                // Aktifkan atau nonaktifkan tombol "Tambah" berdasarkan hasil pemeriksaan di atas
+                if (allFieldsValid) {
+                    tambahButton.removeAttribute('disabled');
+                } else {
+                    tambahButton.setAttribute('disabled', 'true');
+                }
+            });
+        });
+    </script>
 
     <script>
         function hanyaHurufDanSpasi(event) {
@@ -213,14 +215,14 @@
         // Dapatkan elemen checkbox "Lain-lain" dan "Angsuran ke" berdasarkan ID
         var angsuranCheckbox = document.getElementById('angsuran');
         var lainlainCheckbox = document.getElementById('lainlain');
-    
+
         // Dapatkan elemen row "keterangan" berdasarkan ID
         var keteranganRow = document.getElementById('keteranganRow');
-    
+
         // Tambahkan event listener ke checkbox "Lain-lain" dan "Angsuran ke"
         angsuranCheckbox.addEventListener('change', handleCheckboxChange);
         lainlainCheckbox.addEventListener('change', handleCheckboxChange);
-    
+
         // Fungsi untuk menangani perubahan pada checkbox "Lain-lain" dan "Angsuran ke"
         function handleCheckboxChange() {
             // Jika checkbox "Lain-lain" atau "Angsuran ke" dicentang, tampilkan input "keterangan"
@@ -233,7 +235,7 @@
             }
         }
     </script>
-    
+
     <script>
         // Dapatkan semua elemen checkbox
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -286,12 +288,14 @@
 </body>
 <style>
     .date-wrapper {
-        margin:18px 32px 0 0;
+        margin: 18px 32px 0 0;
     }
-    .date{
-        font-weight: 500; 
+
+    .date {
+        font-weight: 500;
         font-size: 14pt
     }
+
     .content-wrapper {
         padding: 3rem 2rem 2rem 2rem;
         flex-grow: 1;
@@ -328,13 +332,13 @@
         border: 1px solid #82bcde;
     }
 
-    .btn-add{
+    .btn-add {
         background-color: #8e4761;
         color: #ffffff;
         border-radius: 0.3rem;
     }
 
-    .btn-add:hover{
+    .btn-add:hover {
         background-color: #acdff8;
         color: #8e4761;
         border: 1px solid #8e4761
