@@ -71,6 +71,7 @@
             </div>
         @endif
         <div class="content" style="margin: 2rem 0 2rem 0">
+            @can('admin')
             <table class="table table-hover table-striped text-center" id="kwitansi-table" style="margin-bottom: 2rem">
                 <thead>
                     <tr class="bg-info">
@@ -153,6 +154,7 @@
             <div class="pagination" id="pagination" style="display: flex">
             </div>
         </div>
+        @endcan
     </section>
     @extends('kwitansi.pop-up.date-picker')
     @extends('kwitansi.pop-up.filter-date-picker')
