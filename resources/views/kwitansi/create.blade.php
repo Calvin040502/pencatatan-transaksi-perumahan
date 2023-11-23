@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Tambah Kwitansi</title>
-    <link rel="icon" href="{{ asset('img/logo.png') }}">
+    <link rel="icon" href="{{ asset('img/logo-pt.png') }}">
 </head>
 
 <body>
@@ -131,7 +131,7 @@
                                 <div class="col-sm-12">
                                     <label for="keterangan" class="col-form-label">Keterangan</label>
                                     <input class="form-control shadow-sm bg-body-tertiary rounded" id="keterangan" name="keterangan"
-                                        placeholder="Masukkan keterangan" required>
+                                        placeholder="Masukkan keterangan">
                                 </div>
                             </div>
                             <div class="row mb-3">

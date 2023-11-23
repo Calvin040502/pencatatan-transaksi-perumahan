@@ -16,7 +16,7 @@
         <div class="header text-center mb-5">
             <img class="login-logo" class="mb-4" src="{{ asset('img/logo-pt.png') }}" alt="" width="80px"
                 height="80px" style="margin-right: 8px">
-            <label class="login-tittle" style="font-size: 42px; font-weight: 600" for="">PT PURIMEGA SARANALAND</label>
+            <label class="login-tittle" style="font-size: 42px; font-weight: 600" for="">PT SATRIYO MEGA SARANA</label>
         </div>
         <div class="col-md-4">
             @if (session()->has('success'))

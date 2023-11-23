@@ -76,7 +76,7 @@ class KwitansiController extends Controller
             $nextNumber = 1;
         }
 
-        $serialNumber = 'PM-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT); // Menggunakan 5 digit atau lebih
+        $serialNumber = 'SMS-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT); // Menggunakan 5 digit atau lebih
 
         return view('kwitansi.create', compact('serialNumber'));
     }
@@ -93,7 +93,7 @@ class KwitansiController extends Controller
                 $nextNumber = 1;
             }
 
-            $serialNumber = 'PM-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT); // Menggunakan 5 digit atau lebih
+            $serialNumber = 'SMS-' . str_pad($nextNumber, 5, '0', STR_PAD_LEFT); // Menggunakan 5 digit atau lebih
 
             $validatedData = $request->validate([
                 'nama_lengkap' => 'required',
@@ -231,6 +231,6 @@ class KwitansiController extends Controller
         }
 
         // Ekspor semua data kwitansi
-        return Excel::download(new ExportKwitansi(), 'Kwitansi.xlsx');
+        return Excel::download(new ExportKwitansi(), 'KwitansiSMS.xlsx');
     }
 }
