@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Manage Admin</title>
-    <link rel="icon" href="{{ asset('img/logoremove.png') }}">
+    <link rel="icon" href="{{ asset('img/logo.png') }}">
 </head>
 
 <body>
@@ -88,27 +88,20 @@
                             </td>
                             <td
                                 style="padding-left: 1rem; display: flex; height: 6rem; justify-content: space-around; align-items: center">
-                                <!-- <a class="btn btn-edit-pencil" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#changePasswordAdminModal">
-                                    <img src="{{ asset('icon/pen2.svg') }}" alt="" style="margin: 4px 0 4px 0">
-                                </a> -->
-
-                                <a class="btn btn-edit-pencil" href="{{ route('manage-users.edit', $user->id) }}">
+                                <a class="btn btn-edit-pencil" title="Ubah Data Admin" href="{{ route('manage-users.edit', $user->id) }}">
                                     <img src="{{ asset('icon/pen2.svg') }}" alt="" style="margin: 4px 0 4px 0">
                                 </a>
-
                             </td>
                             <td>
-                                <a class="btn btn-edit-pencil" data-bs-toggle="modal" data-bs-target="#addRoleModal"
+                                <a class="btn btn-edit-pencil" title="Ubah Role Admin" data-bs-toggle="modal" data-bs-target="#addRoleModal"
                                     href="">
                                     <img src="{{ asset('icon/pen2.svg') }}" alt="" style="margin: 4px 0 4px 0">
                                 </a>
-                                <a class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#deleteRoleModal"
+                                <a class="btn btn-delete" title="Hapus Role Admin" data-bs-toggle="modal" data-bs-target="#deleteRoleModal"
                                     style="border-radius: 100%" href=""><img
                                         src="{{ asset('icon/trash3.svg') }}" alt="">
                                 </a>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
@@ -158,17 +151,17 @@
         background-color: #8e4761;
         color: #ffffff;
         border-radius: 0.3rem;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-add:hover {
+        background-color: #acdff8;
+        color: #8e4761;
+        border: 1px solid #8e4761;
     }
 
     .btn-add:hover img.add {
-        background-color: #acdff8;
-        color: #8e4761;
         content: url('icon/user-plushover.svg');
-        border-image-source: 0;
     }
 
 

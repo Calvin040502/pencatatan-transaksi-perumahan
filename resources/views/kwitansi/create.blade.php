@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>Tambah Kwitansi</title>
-    <link rel="icon" href="{{ asset('img/logoremove.png') }}">
+    <link rel="icon" href="{{ asset('img/logo.png') }}">
 </head>
 
 <body>
@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="container mb-3">
-                                <label for="pembayaran" class="col-form-label">Pembayaran</label>
+                                <label for="pembayaran" class="col-form-label">Pembayaran</label> 
                                 <div class="container">
                                     <div class="row">
                                         <div class="col">
@@ -129,8 +129,8 @@
                             </div>
                             <div class="row mb-3" id="keteranganRow" style="display: none;">
                                 <div class="col-sm-12">
-                                    <label for="keterangan" class="col-form-label">Keterangan Lainnya</label>
-                                    <input class="form-control" id="keterangan" name="keterangan"
+                                    <label for="keterangan" class="col-form-label">Keterangan</label>
+                                    <input class="form-control shadow-sm bg-body-tertiary rounded" id="keterangan" name="keterangan"
                                         placeholder="Masukkan keterangan">
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                                         placeholder="Masukkan Jumlah" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-add mt-3 shadow-sm">Tambah</button>
+                            <button type="submit" class="btn btn-add mt-3 shadow-sm" id="tambahButton" disabled>Tambah</button>
                         </form>
                     </div>
                 </div>
@@ -171,6 +171,31 @@
             return true;
         }
     </script>
+
+<script>
+    // Dapatkan semua elemen input yang perlu diverifikasi
+    const inputFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    
+    // Dapatkan tombol "Tambah"
+    const tambahButton = document.getElementById('tambahButton');
+    
+    // Tambahkan event listener untuk memeriksa field saat berubah
+    inputFields.forEach(field => {
+        field.addEventListener('input', function() {
+            // Cek apakah semua field yang wajib diisi sudah terisi
+            const allFieldsValid = [...inputFields].every(field => field.value.trim() !== '');
+            
+            // Aktifkan atau nonaktifkan tombol "Tambah" berdasarkan hasil pemeriksaan di atas
+            if (allFieldsValid) {
+                tambahButton.removeAttribute('disabled');
+            } else {
+                tambahButton.setAttribute('disabled', 'true');
+            }
+        });
+    });
+</script>
+
+
     <script>
         function hanyaHurufDanSpasi(event) {
             var charCode = event.which || event.keyCode;
@@ -185,38 +210,30 @@
         }
     </script>
     <script>
-        // Dapatkan elemen checkbox "Lain-lain" berdasarkan ID
+        // Dapatkan elemen checkbox "Lain-lain" dan "Angsuran ke" berdasarkan ID
+        var angsuranCheckbox = document.getElementById('angsuran');
         var lainlainCheckbox = document.getElementById('lainlain');
-
+    
         // Dapatkan elemen row "keterangan" berdasarkan ID
         var keteranganRow = document.getElementById('keteranganRow');
-
-        // Tambahkan event listener ke checkbox "Lain-lain"
-        lainlainCheckbox.addEventListener('change', function() {
-            // Jika checkbox "Lain-lain" dicentang, tampilkan input "keterangan"
-            if (this.checked) {
+    
+        // Tambahkan event listener ke checkbox "Lain-lain" dan "Angsuran ke"
+        angsuranCheckbox.addEventListener('change', handleCheckboxChange);
+        lainlainCheckbox.addEventListener('change', handleCheckboxChange);
+    
+        // Fungsi untuk menangani perubahan pada checkbox "Lain-lain" dan "Angsuran ke"
+        function handleCheckboxChange() {
+            // Jika checkbox "Lain-lain" atau "Angsuran ke" dicentang, tampilkan input "keterangan"
+            if (angsuranCheckbox.checked || lainlainCheckbox.checked) {
                 keteranganRow.style.display = 'block';
             } else {
-                // Jika checkbox "Lain-lain" tidak dicentang, sembunyikan input "keterangan" dan hapus isinya
+                // Jika tidak, sembunyikan input "keterangan" dan hapus isinya
                 keteranganRow.style.display = 'none';
                 document.getElementById('keterangan').value = '';
             }
-        });
+        }
     </script>
-    <script>
-        var angsuranCheckbox = document.getElementById('angsuran');
-
-        var keteranganRow = document.getElementById('keteranganRow');
-
-        angsuranCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                keteranganRow.style.display = 'block';
-            } else {
-                keteranganRow.style.display = 'none';
-                document.getElementById('keterangan').value = '';
-            }
-        });
-    </script>
+    
     <script>
         // Dapatkan semua elemen checkbox
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');

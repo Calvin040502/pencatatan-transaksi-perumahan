@@ -6,21 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <title>Edit Kwitansi</title>
-    <link rel="icon" href="{{ asset('img/logoremove.png') }}">
+    <title>Edit Kwitansi {{ $kwitansi->nama_lengkap }}</title>
+    <link rel="icon" href="{{ asset('img/logo.png') }}">
 </head>
 
 <body>
     @include('templates.navbar')
+    <div class="date-wrapper">
+        <label class="date float-end" style="font-weight: 500">
+            {{ date('l, j F Y') }}
+        </label>
+    </div>
     <div class="content-wrapper">
         <section class="wrapper" style="padding-bottom: 10rem; max-width: 1200px; margin: 0 auto;">
             <div class="container pt-8 pt-md-14">
                 <div class="row gx-lg-0 gx-xl-8 gy-10 gy-md-13 gy-lg-0 mb-7 mb-md-10 mb-lg-16 align-items-center">
                     <div class="col-lg-8 mx-auto">
                         <div class="title-form mt-3 mb-4" id="title-form">
-                            <h1 class="h2">EDIT KWITANSI</h1>
+                            <h1>EDIT KWITANSI</h1>
                         </div>
-                        <form method="POST" action="{{ route('kwitansi.update', $kwitansi->id) }}" class="mb-3">
+                        <form method="POST" action="{{ route('kwitansi.update', $kwitansi->id) }}" class="mb-3" onsubmit="return validateForm()">
                             @method('put')
                             @csrf
                             <a class="btn btn-back mb-3" onclick="goBack()">Kembali</a>
@@ -183,8 +188,7 @@
                             </div>
                             <div class="col mb-3 mt-3" id="keteranganRow" style="display: none;">
                                 <label for="keterangan">Keterangan</label>
-                                <input type="text"
-                                    class="form-control @error('keterangan') is-invalid @enderror"
+                                <input type="text" class="form-control @error('keterangan') is-invalid @enderror"
                                     id="keterangan" name="keterangan"
                                     value="{{ old('keterangan', $kwitansi->keterangan) }}">
                                 @error('keterangan')
@@ -230,39 +234,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
     </script>
-    <script>
-        // Dapatkan elemen checkbox "Lain-lain" berdasarkan ID
-        var lainlainCheckbox = document.getElementById('lainlain');
 
-        // Dapatkan elemen row "keterangan" berdasarkan ID
-        var keteranganRow = document.getElementById('keteranganRow');
-
-        // Tambahkan event listener ke checkbox "Lain-lain"
-        lainlainCheckbox.addEventListener('change', function() {
-            // Jika checkbox "Lain-lain" dicentang, tampilkan input "keterangan"
-            if (this.checked) {
-                keteranganRow.style.display = 'block';
-            } else {
-                // Jika checkbox "Lain-lain" tidak dicentang, sembunyikan input "keterangan" dan hapus isinya
-                keteranganRow.style.display = 'none';
-                document.getElementById('keterangan').value = '';
-            }
-        });
-    </script>
     <script>
         var angsuranCheckbox = document.getElementById('angsuran');
-
+        var lainlainCheckbox = document.getElementById('lainlain');
         var keteranganRow = document.getElementById('keteranganRow');
 
-        angsuranCheckbox.addEventListener('change', function() {
-            if (this.checked) {
+        // Periksa status checkbox saat halaman dimuat
+        handleCheckboxChange();
+
+        // Fungsi untuk menangani perubahan pada checkbox "Lain-lain" dan "Angsuran ke"
+        function handleCheckboxChange() {
+            // Jika salah satu checkbox dipilih, tampilkan form keterangan
+            if (angsuranCheckbox.checked || lainlainCheckbox.checked) {
                 keteranganRow.style.display = 'block';
             } else {
+                // Jika tidak ada checkbox yang dipilih, sembunyikan form keterangan
                 keteranganRow.style.display = 'none';
                 document.getElementById('keterangan').value = '';
             }
+        }
+
+        // Tambahkan event listener ke kedua checkbox
+        lainlainCheckbox.addEventListener('change', function() {
+            // Saat checkbox "Lain-lain" berubah, pastikan form keterangan tetap terbuka
+            handleCheckboxChange();
+            // Jika checkbox "Lain-lain" dicentang, pastikan checkbox "Angsuran ke" tidak dicentang
+            if (lainlainCheckbox.checked) {
+                angsuranCheckbox.checked = false;
+            }
+        });
+
+        angsuranCheckbox.addEventListener('change', function() {
+            // Saat checkbox "Angsuran ke" berubah, pastikan form keterangan tetap terbuka
+            handleCheckboxChange();
+            // Jika checkbox "Angsuran ke" dicentang, pastikan checkbox "Lain-lain" tidak dicentang
+            if (angsuranCheckbox.checked) {
+                lainlainCheckbox.checked = false;
+            }
         });
     </script>
+
     <script>
         // Dapatkan semua elemen checkbox
         var checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -286,6 +298,31 @@
             });
         });
     </script>
+
+<script>
+    function validateForm() {
+        var nomor_kwitansi = document.getElementById("nomor_kwitansi").value;
+        var nama_lengkap = document.getElementById("nama_lengkap").value;
+        var lokasi = document.getElementById("lokasi").value;
+        var alamat = document.getElementById("alamat").value;
+        var no_kavling = document.getElementById("no_kavling").value;
+        var no_hp = document.getElementById("no_hp").value;
+        var type = document.getElementById("type").value;
+        var pembayaran = document.querySelectorAll('input[name="pembayaran[]"]:checked').length;
+        var keterangan = document.getElementById("keterangan").value;
+        var terbilang = document.getElementById("terbilang").value;
+        var jumlah = document.getElementById("jumlah").value;
+
+        if (nomor_kwitansi === "" || nama_lengkap === "" || lokasi === "" || alamat === "" ||
+            no_kavling === "" || no_hp === "" || type === "" || pembayaran === 0 ||
+            terbilang === "" || jumlah === "") {
+            alert("Harap isi semua field yang diperlukan sebelum mengirimkan formulir.");
+            return false;
+        }
+    }
+</script>
+
+
     <script>
         // Fungsi untuk memformat input jumlah dengan titik dan "RP"
         function formatCurrency(input) {
@@ -339,8 +376,17 @@
 
 </html>
 <style>
+    .date-wrapper {
+        margin: 20px 32px 0 0;
+    }
+
+    .date {
+        font-weight: 500;
+        font-size: 14pt
+    }
+
     .content-wrapper {
-        padding: 2rem;
+        padding: 3rem 2rem 2rem 2rem;
     }
 
     .wrapper {
@@ -365,6 +411,7 @@
         background-color: #8e4761;
         color: #ffffff;
         border-radius: 0.3rem;
+        margin-top: 1rem
     }
 
     .btn-add:hover {
