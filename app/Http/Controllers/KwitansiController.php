@@ -32,7 +32,6 @@ class KwitansiController extends Controller
             // Jika bukan tanggal yang valid, beri nilai null pada $searchDate
             $searchDate = null;
         }
-        $perPage = $request->input('rowsPerPage', 5);
 
         // Filter Kwitansi berdasarkan pencarian
         $kwitansis = Kwitansi::where(function ($query) use ($search, $searchDate) {
@@ -55,7 +54,7 @@ class KwitansiController extends Controller
             }
         })
             ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+            ->paginate(10);
 
         if ($kwitansis->isEmpty()) {
             session()->flash('error', 'Aset tidak ditemukan');

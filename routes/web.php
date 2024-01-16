@@ -20,11 +20,12 @@ use App\Models\Kwitansi;
 */
 
 Route::get('/', function () {
-    $kwitansis = Kwitansi::get();
+    // $kwitansis = Kwitansi::all();
        
-    return view('kwitansi.index', [
-       'kwitansis' => $kwitansis,
-    ]);
+    // return view('kwitansi.index', [
+    //    'kwitansis' => $kwitansis,
+    // ]);
+    return view('started.index');
    })->middleware('auth');
 
 Route::get('/dashboard', function () {
@@ -43,7 +44,7 @@ Route::delete('/kwitansi/{kwitansi:id}', [KwitansiController::class, 'destroy'])
 Route::get('/kwitansi/detail/{kwitansi:id}/print', [KwitansiController::class, 'print'])->name('kwitansi.print')->middleware('can:admin');
 
 Route::get('/kwitansi/export/excel', [KwitansiController::class, 'exportExcel'])->middleware('can:admin');
-// Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'export_excel_with_date'])->middleware('can:admin');
+Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'export_excel_with_date'])->middleware('can:admin');
 Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'exportExcel'])->middleware('can:admin');
 
 
