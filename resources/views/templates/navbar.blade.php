@@ -40,7 +40,7 @@
         <img class="logo-img" src="{{ asset('img/logo-pt.png') }}" alt="Logo" width="30" height="24"
             class="d-inline-block align-text-top" style="margin-right: 10px;">
         <a class="navbar-brand" href="{{ route('dashboard') }}" style="margin-top: 0;">
-            PT Satriyo Mega Sarana
+            PT SATRIYO MEGA SARANA
         </a>
 
         <div class="profile d-flex align-items-center" style="margin-left: auto; margin-right: 20px">
