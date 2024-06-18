@@ -88,8 +88,7 @@
                         <th style="width: 1rem;">No. Kavling</th>
                         <th style="width: 1rem;">Type</th>
                         <th
-                            style="width: 5rem; @cannot('super admin')
-                        border-top-right-radius: 6px                            
+                            style="width: 5rem; @cannot('super admin')                          
                         @endcannot">
                             Jumlah</th>
                         @can('super admin')
