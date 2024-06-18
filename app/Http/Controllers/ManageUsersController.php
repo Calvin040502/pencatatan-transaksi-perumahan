@@ -113,12 +113,6 @@ public function store(Request $request)
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -138,33 +132,48 @@ public function store(Request $request)
 
     public function assignRole(Request $request, $userId)
     {
+        // Logging untuk memastikan userId yang diterima
+        \Log::info('Assigning role to userId: ' . $userId);
+
         $user = User::findOrFail($userId);
+
+        // Logging untuk memastikan user yang diambil dari database
+        \Log::info('User found: ' . $user->id . ' - ' . $user->email);
 
         $request->validate([
             'role' => 'required|exists:roles,name',
         ]);
 
+        // Logging untuk memastikan role yang diterima
+        \Log::info('Role to be assigned: ' . $request->input('role'));
+
         $role = Role::where('name', $request->input('role'))->firstOrFail();
         $user->assignRole($role);
 
-        return redirect('/manage-users')->with('success', 'Role Successfull Added!');
-    }
-
-    public function showRemoveRoleForm($userId)
-    {
-        $user = User::findOrFail($userId);
-        $roles = Role::all(); // Fetch all roles
-
-        return view('dashboard.manage-users.roles.delete-role', compact('user', 'roles'));
+        return redirect('/manage-users')->with('success', 'Role successfully added!');
     }
 
     public function removeRole(Request $request, $userId)
     {
+        // Logging untuk memastikan userId yang diterima
+        \Log::info('Removing role from userId: ' . $userId);
+
         $user = User::findOrFail($userId);
 
-        // Remove the selected role from the user
-        $user->removeRole($request->role_id);
+        // Logging untuk memastikan user yang diambil dari database
+        \Log::info('User found: ' . $user->id . ' - ' . $user->email);
 
-        return redirect('/manage-users')->with('success', 'Role removed successfully');
+        $request->validate([
+            'role' => 'required|exists:roles,name',
+        ]);
+
+        // Logging untuk memastikan role yang diterima
+        \Log::info('Role to be removed: ' . $request->input('role'));
+
+        $role = Role::where('name', $request->input('role'))->firstOrFail();
+        $user->removeRole($role);
+
+        return redirect('/manage-users')->with('success', 'Role successfully removed!');
     }
+
 }

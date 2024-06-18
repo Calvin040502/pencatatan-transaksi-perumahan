@@ -8,33 +8,38 @@
 </head>
 
 <body>
-    <div class="modal fade" id="deleteRoleModal" tabindex="-1" aria-labelledby="deleteRoleModalLabel" aria-hidden="true">
+    @foreach ($users as $user)
+    <div class="modal fade" id="deleteRoleModal-{{ $user->id }}" tabindex="-1" aria-labelledby="deleteRoleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="deleteRoleModalLabel">Hapus Role Akses</h2>
+                    <h5 class="modal-title" id="deleteRoleModalLabel">Hapus Role Akses</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h4>{{ $user->name }}</h4>
-                    <form action="{{ route('remove.role', $user->id) }}" method="POST">
+                    <form action="{{ route('manage-users.remove-role', $user->id) }}" method="POST">
                         @csrf
-                        @method('POST')
-
+                        @method('DELETE') <!-- Menambahkan metode DELETE -->
                         <div class="form-group">
-                            <label class="mb-3" for="role_id">Pilih Role Akses:</label>
-                            <select name="role_id" id="role_id" class="form-control mb-3">
+                            <label class="mb-3" for="role">Pilih Role yang ingin dihapus:</label>
+                            <select class="form-control mb-3" id="role" name="role" required> <!-- Mengubah name menjadi 'role' -->
                                 @foreach ($user->roles as $role)
-                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-delete">Hapus Role</button>
-                    </form>
+                        <button type="submit" class="btn btn-danger">Hapus Role</button>
+                    </form>                    
                 </div>
             </div>
         </div>
     </div>
+    @endforeach
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

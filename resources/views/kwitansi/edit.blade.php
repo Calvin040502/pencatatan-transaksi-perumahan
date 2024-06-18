@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <title>Edit Kwitansi {{ $kwitansi->nama_lengkap }}</title>
+    <title>Edit Transaksi {{ $kwitansi->nama_lengkap }}</title>
     <link rel="icon" href="{{ asset('img/logo-pt.png') }}">
 </head>
 
@@ -23,7 +23,7 @@
                 <div class="row gx-lg-0 gx-xl-8 gy-10 gy-md-13 gy-lg-0 mb-7 mb-md-10 mb-lg-16 align-items-center">
                     <div class="col-lg-8 mx-auto">
                         <div class="title-form mt-3 mb-4" id="title-form">
-                            <h1>EDIT KWITANSI</h1>
+                            <h1>EDIT TRANSAKSI</h1>
                         </div>
                         <form method="POST" action="{{ route('kwitansi.update', $kwitansi->id) }}" class="mb-3" onsubmit="return validateForm()">
                             @method('put')

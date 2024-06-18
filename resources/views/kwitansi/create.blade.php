@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <title>Tambah Kwitansi</title>
+    <title>Tambah Transaksi</title>
     <link rel="icon" href="{{ asset('img/logo-pt.png') }}">
 </head>
 
@@ -21,7 +21,7 @@
             <div class="container pt-8 pt-md-14">
                 <div class="row gx-lg-0 gx-xl-8 gy-10 gy-md-13 gy-lg-0 mb-7 mb-md-10 mb-lg-16 align-items-center">
                     <div class="col-md-12 title-form mt-3 mb-1" id="title-form">
-                        <h1>TAMBAH KWITANSI</h1>
+                        <h1>TAMBAH TRANSAKSI</h1>
                     </div>
                     <div class="col-md-12">
                         <form action="{{ route('kwitansi.store') }}" method="post">
@@ -75,7 +75,7 @@
                                         onkeypress="return hanyaAngka(event)" required>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="type" class="col-form-label">Type</label>
+                                    <label for="type" class="col-form-label">Tipe</label>
                                     <select class="form-select p-2 shadow-sm bg-body-tertiary rounded" id="type" name="type" required>
                                         <option value="30/60">30/60</option>
                                         <option value="30/60">30/66</option>

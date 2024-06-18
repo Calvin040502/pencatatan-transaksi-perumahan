@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - PT SATRIYO MEGA SARANA</title>
-    <link rel="icon" href="{{ asset('img/logoremove.png') }}">
+    <link rel="icon" href="{{ asset('img/logo-pt.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <style>
         body {
             background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
 
         .wrapper {
@@ -30,6 +31,7 @@
         .header img {
             margin-right: 8px;
             border-radius: 50%;
+            border: 2px solid #007bff; /* Menambahkan border pada gambar */
         }
 
         form {
@@ -52,17 +54,26 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Menambahkan efek transisi */
         }
 
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
+        /* Style untuk pesan error */
+        .invalid-feedback {
+            display: block;
+            color: #dc3545;
+            margin-top: 0.25rem;
+            font-size: 80%;
+        }
     </style>
 </head>
 
 <body>
-    <div class="sheet wrapper">
+    <div class="wrapper">
         <div class="header">
             <img class="mb-4" src="{{ asset('img/logo-pt.png') }}" alt="" width="60" height="60">
             <h1 class="h3 mb-3 font-weight-normal">PT SATRIYO MEGA SARANA</h1>
@@ -86,18 +97,23 @@
                 @csrf
 
                 <div class="form-floating">
-                    <input type="username" class="form-control @error('username') is-invalid @enderror" id="username"
+                    <input type="text" class="form-control @error('username') is-invalid @enderror" id="username"
                         name="username" placeholder="Input your username" required value="{{ old('username') }}">
                     @error('username')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
-                    <label for="floatingInput">Username</label>
+                    <label for="username">Username</label>
                 </div>
                 <div class="form-floating mt-4">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                        required>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                        name="password" placeholder="Password" required>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <label for="password">Password</label>
                 </div>
 
@@ -111,10 +127,10 @@
             </form>
         </div>
     </div>
-</body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    </script>
+</body>
 
 </html>

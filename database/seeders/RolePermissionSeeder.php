@@ -43,15 +43,15 @@ class RolePermissionSeeder extends Seeder
             //     'email' => 'adminb@gmail.com',
             // ], $default_user_value));
     
-            $role_admin = Role::create(['name' => 'admin']);
-            $role_super_admin = Role::create(['name' => 'super_admin']);
+            // $role_admin = Role::create(['name' => 'admin']);
+            // $role_super_admin = Role::create(['name' => 'super_admin']);
     
-            $permission = Permission::create(['name' => 'super admin']);
-            $permission = Permission::create(['name' => 'admin']);
+            // $permission = Permission::create(['name' => 'super admin']);
+            // $permission = Permission::create(['name' => 'admin']);
             
-            $role_admin->givePermissionTo('admin');
-            $role_super_admin->givePermissionTo('super admin');
-            $role_super_admin->givePermissionTo('admin');
+            // $role_admin->givePermissionTo('admin');
+            // $role_super_admin->givePermissionTo('super admin');
+            // $role_super_admin->givePermissionTo('admin');
 
             // $super_admin->assignRole('super_admin');
             // $admin_a->assignRole('admin');

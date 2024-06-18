@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <title>List Kwitansi</title>
+    <title>List Transaksi</title>
     <link rel="icon" href="{{ asset('img/logo-pt.png') }}">
 </head>
 
@@ -18,52 +18,42 @@
     </div>
     <section class="kwitansi" style="padding: 1.5rem 24px 1.5rem 24px">
         <h1 class="text-center"> <a href="{{ route('kwitansi') }}" class="text-decoration-none"
-                style="color: black">LIST KWITANSI</a>
+                style="color: black">LIST DATA TRANSAKSI</a>
         </h1>
         <div class="input" style="padding-top: 2rem">
-            <div class="d-flex justify-content-end mb-3">
-                <form action="/kwitansi" method="GET" class="me-2">
-                    <div class="input-group">
-                        <input type="search" class="form-control shadow-sm bg-body-tertiary" placeholder="Search..."
-                            name="search" value="{{ request('search') }}">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary shadow-sm" type="submit"
-                                style="border-top-left-radius: 0; border-bottom-left-radius: 0" title="Search Data">
-                                <img src="{{ asset('icon/search.svg') }}" alt="">
-                            </button>
+            <div class="row">
+                <div class="col-md-4">
+                    <form action="/kwitansi" method="GET" class="me-2">
+                        <div class="input-group">
+                            <input type="search" class="form-control shadow-sm bg-body-tertiary" placeholder="Search..." name="search" value="{{ request('search') }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary shadow-sm" type="submit" style="border-top-left-radius: 0; border-bottom-left-radius: 0" title="Search Data">
+                                    <img src="{{ asset('icon/search.svg') }}" alt="">
+                                </button>
+                            </div>
                         </div>
+                    </form>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end align-items-center" style="padding-right: 0rem;">
+                    <div>
+                        <a href="{{ route('kwitansi.create') }}" class="btn btn-add shadow-sm" title="Tambah Kwitansi">
+                            <img class="add" src="{{ asset('icon/notes-add-icon.svg') }}" alt="">
+                        </a>
+                        <a href="#" class="btn btn-filter shadow-sm" id="filterButton" title="Filter Data">
+                            <img class="filter" src="{{ asset('icon/filter-data.svg') }}" alt="">
+                        </a>
+                        <button type="button" class="btn btn-print dropdown-toggle shadow-sm" data-bs-toggle="dropdown"
+                            aria-expanded="false" title="Export Data Excel">
+                            <img src="{{ asset('icon/export_notes.svg') }}" alt="">
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url('kwitansi/export/excel') }}">Export Semua Data</a>
+                            </li>
+                            <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#durationModal">Export
+                                    Range Tanggal</button></li>
+                        </ul>
                     </div>
-                </form>
-                <div class="btn-group me-2">
-                    <a href="{{ route('kwitansi.create') }}" class="btn btn-add shadow-sm" title="Tambah Kwitansi">
-                        <img class="add" src="{{ asset('icon/add_notes.svg') }}" alt="">
-                    </a>
-                </div>
-                <div class="btn-group me-2">
-                    <a href="#" class="btn btn-filter shadow-sm" id="filterButton" title="Filter Data">
-                        <img class="filter" src="{{ asset('icon/filter.svg') }}" alt="">
-                    </a>
-                </div>
-                <div class="btn-group me-2">
-                    <a href="#" class="btn btn-refresh shadow-sm" id="refreshButton" title="Refresh Data">
-                        <img style="width: 20px; height: 20px;" class="refresh" src="{{ asset('icon/refresh.svg') }}"
-                            alt="">
-                    </a>
-                </div>
-                <div class="btn-group me-2">
-                    <button type="button" class="btn btn-print dropdown-toggle shadow-sm" data-bs-toggle="dropdown"
-                        aria-expanded="false" title="Export Data Excel">
-                        <img src="{{ asset('icon/export_notes.svg') }}" alt="">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ url('kwitansi/export/excel') }}">Export Semua Data</a>
-                        </li>
-                        <li><button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#durationModal">Export
-                                Range Tanggal</button></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                </div>                
         @if (session()->has('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ session()->get('error') }}
@@ -71,20 +61,19 @@
             </div>
         @endif
         <div class="content" style="margin: 2rem 0 2rem 0">
-            @can('admin')
             <table class="table table-hover table-striped text-center" id="kwitansi-table" style="margin-bottom: 2rem">
                 <thead>
                     <tr class="bg-info">
                         <th style="width: 2rem; justify-content: center; align-items: center; cursor: pointer; border-top-left-radius: 6px"
                             id="sortNo">No.</th>
-                        <th style="width: 4.5rem; cursor: pointer;" id="sortKwitansi">No. Kwitansi</th>
-                        <th style="width: 5rem; cursor: pointer;" id="sortTanggal">Tanggal</th>
+                        <th style="width: 4rem; cursor: pointer;" id="sortKwitansi">No. Kwitansi</th>
+                        <th style="width: 6rem; cursor: pointer;" id="sortTanggal">Tanggal</th>
                         <th style="width: 6rem;">Nama Lengkap</th>
                         <th style="width: 10rem;">Alamat</th>
-                        <th style="width: 4.5rem;">No. HP</th>
-                        <th style="width: 8.5rem;">Terbilang</th>
+                        <th style="width: 3rem;">No. HP</th>
+                        <th style="width: 6rem;">Terbilang</th>
                         <th style="width: 4rem;">Pembayaran</th>
-                        <th style="width: 4rem;">Nama Perumahan</th>
+                        <th style="width: 10rem;">Nama Perumahan</th>
                         <th style="width: 1rem;">No. Kavling</th>
                         <th style="width: 1rem;">Type</th>
                         <th
@@ -92,7 +81,7 @@
                         @endcannot">
                             Jumlah</th>
                         @can('super admin')
-                            <th style="width: 6.7rem; border-top-right-radius: 6px"> Action</th>
+                            <th style="width: 10rem; border-top-right-radius: 6px"> Action</th>
                         @endcan
                         </th>
                     </tr>
@@ -128,7 +117,7 @@
                             <td>{{ $kwitansi->jumlah }}</td>
                             @can('super admin')
                                 <td
-                                    style="padding-left: 1rem; display: flex; height: 6rem; justify-content: space-around; align-items: center">
+                                    style="padding-left: 1rem; display: flex; height: 7rem; justify-content: space-around; align-items: center">
                                     <a class="btn btn-edit-pencil" title="Edit Data Kwitansi"
                                         href="{{ route('kwitansi.edit', $kwitansi->id) }}">
                                         <img src="{{ asset('icon/pen2.svg') }}" alt=""
@@ -151,16 +140,15 @@
                 </tbody>
             </table>
             {{ $kwitansis->links() }}
-            @endcan
         </div>
     </section>
     @include('kwitansi.pop-up.date-picker')
     @include('kwitansi.pop-up.filter-date-picker')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
     </script>
+    
     <script>
         function changeRowsPerPage(selectElement) {
             const rowsPerPage = selectElement.value;
@@ -364,13 +352,14 @@
 </body>
 
 <style>
+    /* Menyesuaikan tata letak */
     .date-wrapper {
         margin: 20px 32px 0 0;
     }
 
     .date {
         font-weight: 500;
-        font-size: 14pt
+        font-size: 14pt;
     }
 
     body {
@@ -386,21 +375,23 @@
     }
 
     .table th {
-        background-color: #3c6687;
+        background-color: #007bff;
         color: white;
         text-align: center;
         vertical-align: middle;
         margin: 0;
         padding: 0 4px 0 4px;
         height: 4rem;
-        border-bottom: 1px solid #493d3d
+        border-bottom: 1px solid #493d3d;
     }
 
     .table td {
         margin: 0;
         padding: 0 4px 0 4px;
         vertical-align: middle;
-        height: 6rem;
+        height: 3rem;
+        padding-top: 20px; 
+        padding-bottom: 20px; 
     }
 
     .pagination {
@@ -410,7 +401,8 @@
         margin-top: 1rem;
     }
 
-    .pagination a, .pagination .active {
+    .pagination a,
+    .pagination .active {
         margin: 0 0.5rem;
         text-decoration: none;
         padding: 0.5rem 1rem;
@@ -429,6 +421,7 @@
         color: white;
     }
 
+    /* Menyesuaikan ukuran ikon */
     img {
         height: 26px;
         width: 26px;
@@ -436,47 +429,45 @@
         padding: 0;
     }
 
-    .date {
-        font-size: 18px;
-        margin-top: 10px;
-    }
-
+    /* Menyesuaikan ukuran dan gaya tombol tambah */
     .btn-add {
         width: 4rem;
-        background-color: #8e4761;
-        color: #ffffff;
+        background-color: #f9d150;
+        color: #404567;
         border-radius: 0.3rem;
         transition: all 0.3s ease;
     }
 
     .btn-add:hover {
-        background-color: #acdff8;
-        color: #8e4761;
+        background-color: #e5eae6;
+        color: #404567;
         border: 1px solid #8e4761;
     }
 
     .btn-add:hover img.add {
-        content: url('icon/add_noteshover.svg');
+        content: url('icon/notes-add-icon.svg');
     }
 
+    /* Menyesuaikan ukuran dan gaya tombol filter */
     .btn-filter {
         width: 4rem;
-        background-color: #8e4761;
-        color: #ffffff;
+        background-color: #f9d150;
+        color: #404567;
         border-radius: 0.3rem;
         transition: all 0.3s ease;
     }
 
     .btn-filter:hover {
-        background-color: #acdff8;
-        color: #8e4761;
+        background-color: #e5eae6;
+        color: #404567;
         border: 1px solid #8e4761;
     }
 
     .btn-filter:hover img.filter {
-        content: url('icon/filterhover.svg');
+        content: url('icon/filter-data.svg');
     }
 
+    /* Menyesuaikan ukuran dan gaya tombol refresh */
     .btn-refresh {
         width: 4rem;
         background-color: #8e4761;
@@ -498,7 +489,7 @@
         content: url('icon/refresh-hover.svg');
     }
 
-
+    /* Menyesuaikan gaya tombol ekspor */
     .btn-print {
         background-color: #f9d150;
         color: #404567;
@@ -508,9 +499,10 @@
     .btn-print:hover {
         background-color: #e5eae6;
         color: #404567;
-        border: 1px solid #8e4761
+        border: 1px solid #8e4761;
     }
 
+    /* Menyesuaikan gaya tombol edit */
     .btn-edit-pencil {
         background-color: #d96652;
         color: #e9ecf1;
@@ -520,9 +512,10 @@
     .btn-edit-pencil:hover {
         background-color: #8e4761;
         color: #e9ecf1;
-        border: 1px solid #f39c7d
+        border: 1px solid #f39c7d;
     }
 
+    /* Menyesuaikan gaya tombol hapus */
     .btn-delete {
         background-color: #33434f;
         color: #ffffff;
@@ -534,8 +527,9 @@
     .btn-delete:hover {
         background-color: #b0b2b7;
         color: #ffffff;
-        border: 1px solid #33434f
+        border: 1px solid #33434f;
     }
 </style>
+
 
 </html>

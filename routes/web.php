@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\ManageUsersController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SitePlanController;
 use App\Models\Kwitansi;
 
 /*
@@ -47,7 +48,7 @@ Route::get('/kwitansi/export/excel', [KwitansiController::class, 'exportExcel'])
 Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'export_excel_with_date'])->middleware('can:admin');
 Route::get('/kwitansi/export/excel-with-date', [KwitansiController::class, 'exportExcel'])->middleware('can:admin');
 
-
+Route::get('/site-plan', [SitePlanController::class, 'index'])->name('site.plan')->middleware('can:admin');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.process');
@@ -66,6 +67,6 @@ Route::delete('/manage-users/{userId}', [ManageUsersController::class, 'destroy'
 Route::get('/manage-users/{userId}/', [ManageUsersController::class, 'addRole'])->name('add.role')->middleware('can:super admin');
 Route::post('/manage-users/{userId}/assign-role', [ManageUsersController::class, 'assignRole'])->name('assign.role')->middleware('can:super admin');
 
-Route::get('/user/{userId}/remove-role', [ManageUsersController::class, 'showRemoveRoleForm'])->name('remove.role')->middleware('can:super admin');
-Route::post('/user/{userId}/remove-role', [ManageUsersController::class, 'removeRole'])->name('remove.role')->middleware('can:super admin');
+Route::get('/manage-user/{userId}/remove-role', [ManageUsersController::class, 'showRemoveRoleForm'])->name('show.remove.role')->middleware('can:super admin');
+Route::delete('/manage-users/{userId}/remove-role', [ManageUsersController::class, 'removeRole'])->name('manage-users.remove-role')->middleware('can:super admin');
 

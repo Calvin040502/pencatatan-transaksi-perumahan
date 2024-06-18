@@ -15,15 +15,21 @@
             @endcan
             <li class="nav-item {{ str_contains(Request::url(), 'kwitansi') ? 'active' : '' }}">
                 <a href="{{ route('kwitansi') }}" class="nav-link text-truncate">
-                    <img class="kwitansii" src="{{ asset('icon/article-hover.svg') }}" alt="">
-                    List Kwitansi
+                    <img class="article" src="{{ asset('icon/article-hover.svg') }}" alt="">
+                    Data Transaksi
                 </a>
-            </li>            
+            </li>
+            <li class="nav-item {{ str_contains(Request::url(), 'site-plan') ? 'active' : '' }}">
+                <a href="{{ route('site.plan') }}" class="nav-link text-truncate">
+                    <img class="site-plan" src="{{ asset('icon/site-plan.svg') }}" alt="">
+                    Site Plan
+                </a>
+            </li>
             @can('super admin')
                 <li class="nav-item {{ str_contains(Request::url(), 'manage-users') ? 'active' : '' }}">
                     <a href="{{ route('manage.users') }}" class="nav-link text-truncate">
                         <img class="user" src="{{ asset('icon/userhover.svg') }}" alt="">
-                        Manage Admin
+                        Kelola Akun
                     </a>
                 </li>
             @endcan
@@ -31,7 +37,7 @@
     </div>
 </div>
 <nav class="navbar shadow-sm"
-    style="background-color: #8ba8d9; display: flex; align-items: center; justify-content: center;">
+    style="background-color: #007bff; display: flex; align-items: center; justify-content: center;">
     <div class="container-fluid" style="display: flex; align-items: center; justify-content: center;">
         <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
             aria-controls="offcanvasWithBothOptions">
@@ -146,18 +152,23 @@
     .offcanvas-body #menu li.nav-item:hover img.home,
     .offcanvas-body #menu li.nav-item.active img.home {
         transform: scale(1.2);
-        /* content: url('icon/homehover.svg'); */
         height: 28px;
         width: 28px;
     }
 
-    .offcanvas-body #menu li.nav-item:hover img.kwitansii,
-    .offcanvas-body #menu li.nav-item.active img.kwitansii {
+    .offcanvas-body #menu li.nav-item:hover img.article,
+    .offcanvas-body #menu li.nav-item.active img.article {
         transform: scale(1.2);
         height: 28px;
         width: 28px;
     }
 
+    .offcanvas-body #menu li.nav-item:hover img.site-plan,
+    .offcanvas-body #menu li.nav-item.active img.site-plan {
+        transform: scale(1.2);
+        height: 28px;
+        width: 28px;
+    }
 
     .offcanvas-body #menu li.nav-item:hover img.user,
     .offcanvas-body #menu li.nav-item.active img.user {

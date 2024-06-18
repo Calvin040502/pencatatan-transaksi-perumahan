@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+    @foreach ($users as $user)
+    <div class="modal fade" id="addRoleModal-{{ $user->id }}" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -16,6 +17,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <h4>{{ $user->name }}</h4>
                     <form action="{{ route('assign.role', $user->id) }}" method="POST">
                         @csrf
                         <div class="form-group">
@@ -32,6 +34,7 @@
             </div>
         </div>
     </div>
+@endforeach
 </body>
 
 </html>
